@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file service-account.json
+
+
+  # $ docker run -it -v ${pwd}:/app ruby:2.3 sh
+  # pwd not working use absolute path c:\Users\Samu\Desktop\Opiskelut\docker\complex
+  # gem install travis --no-rdoc --no-ri
+  # travis login # with github account
+  # travis encrypt-file service-account.json -r Samuvain/multi-k8s
+  # delete service-account.json file
